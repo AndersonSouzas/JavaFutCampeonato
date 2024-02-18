@@ -18,10 +18,13 @@ public class Clube {
         return pontos;
     }
 
+    public int getSaldoGols() {
+        return saldoGols;
+    }
+
     public void ganhar(int saldoGols) {
-        if (saldoGols > 0) {
-            this.pontos += 3;
-        }
+        this.pontos += 3;
+        this.saldoGols += saldoGols;
     }
 
     public void empatar() {
@@ -29,8 +32,6 @@ public class Clube {
     }
 
     public void perder(int saldoGols) {
-        if (saldoGols < 0) {
-            this.pontos += pontos;
-        }
+        this.saldoGols -= saldoGols;
     }
 }

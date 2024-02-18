@@ -1,8 +1,6 @@
 package br.com.campeonato;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Campeonato {
     public List<Clube> clubes;
@@ -43,15 +41,26 @@ public class Campeonato {
         }
     }
     public void getClassificacao() {
+        Collections.sort(clubes,
+                Comparator.comparing(Clube::getPontos)
+                        .thenComparing(Clube::getSaldoGols).reversed());
+
+        System.out.println("--------------------------------------------------");
+        System.out.printf("| %-20s | %-7s | %-13s |\n", "Clube", "Pontos", "Saldo de Gols");
+        System.out.println("--------------------------------------------------");
+
         for (Clube clube : clubes) {
-            System.out.println(clube.getNome() + " - Pontos: " + clube.getPontos());
+            System.out.printf("| %-20s | %-7d | %-13d |\n", clube.getNome(), clube.getPontos(), clube.getSaldoGols());
         }
+
+        System.out.println("--------------------------------------------------");
     }
 
     public Clube getCampeao() {
         Clube campeao = clubes.get(0);
         for (Clube clube : clubes) {
-            if (clube.getPontos() > campeao.getPontos()) {
+            if (clube.getPontos() > campeao.getPontos() ||
+                    (clube.getPontos() == campeao.getPontos() && clube.getSaldoGols() > campeao.getSaldoGols())) {
                 campeao = clube;
             }
         }
